@@ -1,7 +1,7 @@
-var express = require('express');
-var cors = require('cors');
-var bodyParser = require('body-parser');
-var path = require('path');
+const express = require('express');
+const cors = require('cors');
+const bodyParser = require('body-parser');
+const path = require('path');
 
 const PORT = process.env.PORT || 5000;
 const HOST = process.env.HOST || '0.0.0.0';
@@ -14,11 +14,11 @@ app.use(bodyParser.json());
 app.use(bodyParser.text());
 
 if (process.env.NODE_ENV === 'production') {
-    app.use(express.static('frontend/build'));
+  app.use(express.static('frontend/build'));
 
-    app.get('*', (req, res) => {
-        res.sendFile(path.join(__dirname, 'frontend', 'build', 'index.html'));
-    });
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'frontend', 'build', 'index.html'));
+  });
 }
 
 app.listen(PORT, HOST);
