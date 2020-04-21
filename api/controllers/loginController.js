@@ -3,7 +3,8 @@ const User  = require('../models/userModel');
 const mongoose = require('mongoose');
 const CryptoJS = require('crypto-js');
 const jwt = require('jsonwebtoken');
-const keys = require('../config/keys') || null;
+
+// const keys = require('keys../config/keys');
 
 const mongodb = keys.mongourl || process.env.MONGO_URL;
 
@@ -56,7 +57,7 @@ exports.login = async function (req, res, next) {
     delete req.body;
     jwt.sign(
       payload,
-      keys.secret,
+      process.env.SECRET,
       {
         expiresIn: 10800 // 3 hours in seconds
       },
