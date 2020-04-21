@@ -11,6 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Beach from '../../beach.jpg';
 import VibeLogo from '../../bannerlogo.jpg';
+import { CSSTransitionGroup } from 'react-transition-group' // ES6
 
 
 const useStyles = makeStyles((theme) => ({
@@ -59,6 +60,16 @@ const useStyles = makeStyles((theme) => ({
   borderOutline: {
     borderWidth: "1px",
     borderColor: "#0097a7 !important"
+  },
+  sideTextOne: {
+    color: "rgb(255, 255, 255)",
+    marginTop: theme.spacing(20),
+    fontSize: "80px"
+  },
+  sideTextTwo: {
+    color: "rgb(255, 255, 255)",
+    marginTop: theme.spacing(-10),
+    fontSize: "80px"
   }
 }));
 
@@ -68,7 +79,19 @@ export default function Login() {
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
-      <Grid item xs={false} sm={4} md={7} className={classes.image} />
+      <Grid item xs={false} sm={4} md={7} className={classes.image}>
+        <div>
+        <h1 className={classes.sideTextOne}>Track Your</h1>
+        <CSSTransitionGroup
+          transitionName="example"
+          transitionAppear={true}
+          transitionAppearTimeout={20000}
+          transitionEnter={false}
+          transitionLeave={false}>
+          <h1 className={classes.sideTextTwo}>Good Vibes</h1>
+        </CSSTransitionGroup>
+        </div>
+      </Grid>
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
         <div className={classes.paper}>
           <img className={classes.title} src={VibeLogo}/>
