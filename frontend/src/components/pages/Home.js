@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import HomeTopBar from '../elements/HomeTopBar';
 import Maps from '../../maps.png';
 import Pin from '../../pin.png';
-import Forest from '../../forest.png';
+import Nature from '../../nature.png';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -27,7 +27,7 @@ export default function Home() {
       />
       <MenuCard
         title="My Vibes"
-        image={Forest}
+        image={Nature}
         imagetitle="pin"
         route="/vibes"
       />
