@@ -13,7 +13,8 @@ import Beach from '../../beach.jpg';
 import VibeLogo from '../../bannerlogo.jpg';
 import { CSSTransitionGroup } from 'react-transition-group' // ES6
 
-
+const blue = "#0097a7"
+const black = "rgb(0, 0, 0)"
 const useStyles = makeStyles((theme) => ({
   root: {
     height: '100vh',
@@ -50,19 +51,19 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(1),
   },
   labels: {
-    color: "#0097a7 !important"
+    color: `${black} !important`
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
-    backgroundColor: "#0097a7",
+    backgroundColor: black,
     "&:hover": {
       //you want this to be the same as the backgroundColor above
-      backgroundColor: "#0097a7 !important"
+      backgroundColor: `${black} !important`
     },
   },
   borderOutline: {
     borderWidth: "1px",
-    borderColor: "#0097a7 !important"
+    borderColor: `${black} !important`
   },
   sideTextOne: {
     color: "rgb(255, 255, 255)",
@@ -97,7 +98,8 @@ export default function Login() {
       </Grid>
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
         <div className={classes.paper}>
-          <img className={classes.title} src={VibeLogo}/>
+          {/* <img className={classes.title} src={VibeLogo}/> */}
+          <h1>Vibe Tracker</h1>
           <form className={classes.form} noValidate>
             <TextField
               variant="outlined"
@@ -155,6 +157,7 @@ export default function Login() {
               variant="contained"
               color="primary"
               className={classes.submit}
+              href="/home"
             >
               Sign In
             </Button>
