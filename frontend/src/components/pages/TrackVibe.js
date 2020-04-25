@@ -1,16 +1,29 @@
 import React, { useEffect } from 'react';
 import ReactMapboxGl, { Layer, Feature } from 'react-mapbox-gl';
+import { makeStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
 
 const Map = ReactMapboxGl({
     accessToken:
       'pk.eyJ1IjoicmNvbGV3b3JsZCIsImEiOiJjazlmanB1dzYwY2cxM2duYWdtbjN3YjJmIn0.LNMjiEtpqEIDq4oZtmO0wQ'
 });
+const black = 'rgb(0, 0, 0)'
+const useStyles = makeStyles((theme) => ({
+  submit: {
+    backgroundColor: black,
+    "&:hover": {
+      //you want this to be the same as the backgroundColor above
+      backgroundColor: `${black} !important`
+    },
+  },
+
+}));
 
 //-92.6036243758132
 // 32.53369667134067
 export default function TrackVibe() {
   const [location, setLocation] = React.useState([]);
-
+  const classes = useStyles();
   var options = {
     enableHighAccuracy: true,
     timeout: 5000,
@@ -38,9 +51,16 @@ export default function TrackVibe() {
     // navigator.geolocation.getCurrentPosition(success, error, options);
     // console.log("Location " + location)
     return (
-        
-        <div>
+      
+      <div>
             <h1>Track Vibe</h1>
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            className={classes.submit}
+          >Add Vibe</Button>
             <Map
             style="mapbox://styles/mapbox/streets-v9"
             containerStyle={{
