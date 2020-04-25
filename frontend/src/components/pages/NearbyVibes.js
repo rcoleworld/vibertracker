@@ -34,9 +34,21 @@ const useStyles = makeStyles((theme) => ({
 export default function NearbyVibes() {
   const classes = useStyles();
 
+  
+  setTimeout(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.watchPosition(function (position) {
+        localStorage.removeItem('latitude')
+        localStorage.removeItem('longitude')
+        localStorage.setItem('latitude', position.coords.latitude.toString())
+        localStorage.setItem('longitude', position.coords.longitude.toString())
+        console.log("Latitude is :", position.coords.latitude);
+        console.log("Longitude is :", position.coords.longitude);
+      });
+    }
+  }, 3000)
   let long = localStorage.getItem('longitude');
   let lat = localStorage.getItem('latitude');
-
   return (
     <div>
       <FormControl variant="outlined" className={classes.formControl}
