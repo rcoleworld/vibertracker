@@ -1,15 +1,16 @@
 import React, { useEffect } from 'react';
-import ReactMapboxGl, { Layer, Feature } from 'react-mapbox-gl';
+import ReactMapboxGl, { Layer, Feature, Marker } from 'react-mapbox-gl';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 
 const Map = ReactMapboxGl({
-    accessToken:
-      'pk.eyJ1IjoicmNvbGV3b3JsZCIsImEiOiJjazlmanB1dzYwY2cxM2duYWdtbjN3YjJmIn0.LNMjiEtpqEIDq4oZtmO0wQ'
+  accessToken:
+    'pk.eyJ1IjoicmNvbGV3b3JsZCIsImEiOiJjazlmanB1dzYwY2cxM2duYWdtbjN3YjJmIn0.LNMjiEtpqEIDq4oZtmO0wQ'
 });
 const black = 'rgb(0, 0, 0)'
 const useStyles = makeStyles((theme) => ({
   submit: {
+    borderRadius: '0px',
     backgroundColor: black,
     "&:hover": {
       //you want this to be the same as the backgroundColor above
@@ -22,57 +23,52 @@ const useStyles = makeStyles((theme) => ({
 //-92.6036243758132
 // 32.53369667134067
 export default function TrackVibe() {
-  const [location, setLocation] = React.useState([]);
   const classes = useStyles();
   var options = {
     enableHighAccuracy: true,
     timeout: 5000,
     maximumAge: 0
   };
+  setTimeout(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.watchPosition(function (position) {
+        localStorage.setItem('latitude', position.coords.latitude.toString())
+        localStorage.setItem('longitude', position.coords.longitude.toString())
+        console.log("Latitude is :", position.coords.latitude);
+        console.log("Longitude is :", position.coords.longitude);
+      });
+    }
+  }, 3000)
+  let long = localStorage.getItem('longitude');
+  let lat = localStorage.getItem('latitude');
 
-    // function success(pos) {
-    //   var crd = pos.coords;
-    //   setLocation([crd.longitude, crd.latitude])
-    //   console.log('Your current position is:');
-    //   console.log(`Latitude : ${crd.latitude}`);
-    //   console.log(`Longitude: ${crd.longitude}`);
-    //   console.log(`More or less ${crd.accuracy} meters.`);
-    // }
-  
-    // function error(err) {
-    //   console.warn(`ERROR(${err.code}): ${err.message}`);
-    // }
+  return (
+    <div>
+      <Button
+        type="submit"
+        fullWidth
+        variant="contained"
+        color="primary"
+        className={classes.submit}
+      >Add Vibe</Button>
+      {long && lat &&
+        <Map
+          style="mapbox://styles/mapbox/streets-v10"
+          containerStyle={{
+            height: '100vh',
+            width: '100vw'
+          }}
+          minZoom={15}
+          center={[long, lat]}
+        >
+          <Marker
+            coordinates={[long, lat]}
+            anchor="bottom">
+            <img src='https://i.imgur.com/MK4NUzI.png' />
+          </Marker>
+        </Map>
+      }
 
-    // setTimeout(() => {
-    //     navigator.geolocation.getCurrentPosition(success, error, options);
-    //     console.log(location)
-    // }, 3000)
-
-    // navigator.geolocation.getCurrentPosition(success, error, options);
-    // console.log("Location " + location)
-    return (
-      
-      <div>
-            {/* <h1>Track Vibe</h1> */}
-          {/* <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-          >Add Vibe</Button> */}
-            <Map
-            style="mapbox://styles/mapbox/streets-v9"
-            containerStyle={{
-                height: '100vh',
-                width: '100vw'
-            }}
-            center={[-92.6036243758132, 32.53369667134067]}
-            >
-              <Layer type="symbol" id="marker" layout={{ 'icon-image': 'marker-15' }}>
-                  <Feature coordinates={[-92.6036243758132, 32.53369667134067]}/>
-              </Layer>
-            </Map>
-        </div>
-    );
+    </div>
+  );
 }

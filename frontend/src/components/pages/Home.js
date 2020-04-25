@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import MenuCard from '../elements/MenuCard';
 import { makeStyles } from '@material-ui/core/styles';
 import HomeTopBar from '../elements/HomeTopBar';
@@ -14,8 +14,21 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
+
+
 export default function Home() {
   const classes = useStyles();
+  useEffect(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.watchPosition(function(position) {
+        localStorage.setItem('latitude', position.coords.latitude.toString())
+        localStorage.setItem('longitude', position.coords.longitude.toString())
+        console.log("Latitude is :", position.coords.latitude);
+        console.log("Longitude is :", position.coords.longitude);
+        // setLocation([position.coords.longitude, ])
+      });
+    }
+  })
   return (
     <div>
       <HomeTopBar></HomeTopBar>

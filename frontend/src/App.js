@@ -18,7 +18,6 @@ function App() {
           <Route exact path='/vibes' component={withRouter(MyVibes)}/>
           <Route exact path='/nearby' component={withRouter(NearbyVibes)}/>
           <Route exact path='/track' component={withRouter(TrackVibe)}/>
-
         </Switch>
       </Router>
     </div>

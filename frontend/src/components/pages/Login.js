@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     width: '100%',
-    height:'100%',
+    height: '100%',
     margin: theme.spacing(1),
     marginLeft: theme.spacing(3),
     marginTop: theme.spacing(-5)
@@ -85,15 +85,15 @@ export default function Login() {
       <CssBaseline />
       <Grid item xs={false} sm={4} md={7} className={classes.image}>
         <div>
-        <h1 className={classes.sideTextOne}>Track Your</h1>
-        <CSSTransitionGroup
-          transitionName="example"
-          transitionAppear={true}
-          transitionAppearTimeout={20000}
-          transitionEnter={false}
-          transitionLeave={false}>
-          <h1 className={classes.sideTextTwo}>Good Vibes</h1>
-        </CSSTransitionGroup>
+          <h1 className={classes.sideTextOne}>Track Your</h1>
+          <CSSTransitionGroup
+            transitionName="example"
+            transitionAppear={true}
+            transitionAppearTimeout={20000}
+            transitionEnter={false}
+            transitionLeave={false}>
+            <h1 className={classes.sideTextTwo}>Good Vibes</h1>
+          </CSSTransitionGroup>
         </div>
       </Grid>
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
@@ -110,12 +110,12 @@ export default function Login() {
               name="email"
               autoComplete="email"
               autoFocus
-              InputLabelProps = {{
+              InputLabelProps={{
                 classes: {
                   focused: classes.labels
                 }
               }}
-              InputProps = {{
+              InputProps={{
                 classes: {
                   root: classes.borderOutline,
                   focused: classes.borderOutline,
@@ -133,12 +133,12 @@ export default function Login() {
               type="password"
               id="password"
               autoComplete="current-password"
-              InputLabelProps = {{
+              InputLabelProps={{
                 classes: {
                   focused: classes.labels
                 }
               }}
-              InputProps = {{
+              InputProps={{
                 classes: {
                   root: classes.borderOutline,
                   focused: classes.borderOutline,
