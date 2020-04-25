@@ -54,13 +54,13 @@ export default function TrackVibe() {
       
       <div>
             <h1>Track Vibe</h1>
-          <Button
+          {/* <Button
             type="submit"
             fullWidth
             variant="contained"
             color="primary"
             className={classes.submit}
-          >Add Vibe</Button>
+          >Add Vibe</Button> */}
             <Map
             style="mapbox://styles/mapbox/streets-v9"
             containerStyle={{
