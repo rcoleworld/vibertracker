@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
@@ -34,19 +34,20 @@ const useStyles = makeStyles((theme) => ({
 export default function NearbyVibes() {
   const classes = useStyles();
 
-  
-  setTimeout(() => {
+
+  useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.watchPosition(function (position) {
-        localStorage.removeItem('latitude')
-        localStorage.removeItem('longitude')
+        if (!localStorage.getItem('latitude') || !localStorage.getItem('longitude'))
+          window.location.reload()
         localStorage.setItem('latitude', position.coords.latitude.toString())
         localStorage.setItem('longitude', position.coords.longitude.toString())
         console.log("Latitude is :", position.coords.latitude);
         console.log("Longitude is :", position.coords.longitude);
       });
+
     }
-  }, 3000)
+  })
   let long = localStorage.getItem('longitude');
   let lat = localStorage.getItem('latitude');
   return (
