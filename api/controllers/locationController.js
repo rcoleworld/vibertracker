@@ -1,13 +1,14 @@
 const User  = require('../models/userModel');
 const Location = require('../models/locationModel');
-const production = true;
+// const production = true;
 const mongoose = require('mongoose');
 
-let keys = "";
-if (!production)
-  keys = require('../config/keys');
+// let keys = "";
+// if (!production)
+//   keys = require('../config/keys');
 
-const mongodb = process.env.MONGO_URL || keys.mongourl;
+const mongodb = process.env.MONGO_URL 
+// || keys.mongourl;
 
 mongoose.connect(mongodb, {useNewUrlParser: true, useUnifiedTopology: true});
 const db = mongoose.connection;
