@@ -1,4 +1,4 @@
-const url = 'http://localhost:5000/users/createuser';
+const url = 'https://vibetracker.herokuapp.com/users/createuser';
 
 export async function userSignup(submittedUsername, submittedPassword) {
   let credientials = { username: submittedUsername, password: submittedPassword }

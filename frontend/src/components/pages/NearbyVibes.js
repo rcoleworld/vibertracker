@@ -5,6 +5,7 @@ import FormControl from '@material-ui/core/FormControl';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 
+import {getAllLocations} from '../../functions/locations';
 import ReactMapboxGl, { Layer, Feature, Marker } from 'react-mapbox-gl';
 
 const Map = ReactMapboxGl({
@@ -33,13 +34,20 @@ const useStyles = makeStyles((theme) => ({
 
 export default function NearbyVibes() {
   const classes = useStyles();
-
-
+  const [locations, setLocations] = React.useState([]);
+  const getLocations = () => {
+    getAllLocations().then((resp) => {
+      console.log(locations);
+      setLocations(resp)
+    }
+    )
+  }
   useEffect(() => {
+    getLocations()
     if (navigator.geolocation) {
       navigator.geolocation.watchPosition(function (position) {
         if (!localStorage.getItem('latitude') || !localStorage.getItem('longitude'))
-          window.location.reload()
+        window.location.reload()
 
         localStorage.setItem('latitude', position.coords.latitude.toString())
         localStorage.setItem('longitude', position.coords.longitude.toString())
@@ -50,7 +58,7 @@ export default function NearbyVibes() {
   let lat = localStorage.getItem('latitude');
   return (
     <div>
-      <FormControl variant="outlined" className={classes.formControl}>
+      {/* <FormControl variant="outlined" className={classes.formControl}>
         <InputLabel id="demo-simple-select-outlined-label"
         >Distance</InputLabel>
         <Select
@@ -78,7 +86,7 @@ export default function NearbyVibes() {
           <MenuItem value={100}>100mi</MenuItem>
           <MenuItem value={1000}>1000mi</MenuItem>
         </Select>
-      </FormControl>
+      </FormControl> */}
       <Map
         style="mapbox://styles/mapbox/streets-v10"
         containerStyle={{
@@ -87,11 +95,14 @@ export default function NearbyVibes() {
         }}
         center={[long, lat]}
       >
+        {locations !== 'undefined' && locations.length > 0 && locations.map(location => (
         <Marker
-          coordinates={[long, lat]}
+          coordinates={[location.longitude, location.latitude]}
           anchor="bottom">
           <img src='https://i.imgur.com/MK4NUzI.png' />
         </Marker>
+        ))
+        }
       </Map>
     </div>
   );

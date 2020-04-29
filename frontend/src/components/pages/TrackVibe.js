@@ -3,10 +3,13 @@ import ReactMapboxGl, { Layer, Feature, Marker } from 'react-mapbox-gl';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 
+import {addLocation} from '../../functions/locations';
+
 const Map = ReactMapboxGl({
   accessToken:
     'pk.eyJ1IjoicmNvbGV3b3JsZCIsImEiOiJjazlmanB1dzYwY2cxM2duYWdtbjN3YjJmIn0.LNMjiEtpqEIDq4oZtmO0wQ'
 });
+
 const black = 'rgb(0, 0, 0)'
 const useStyles = makeStyles((theme) => ({
   submit: {
@@ -24,12 +27,10 @@ const useStyles = makeStyles((theme) => ({
 // 32.53369667134067
 export default function TrackVibe() {
   const classes = useStyles();
-  var options = {
-    enableHighAccuracy: true,
-    timeout: 5000,
-    maximumAge: 0
-  };
   
+  const add = () => {
+    addLocation(localStorage.getItem("username"), "title", "description", localStorage.getItem("latitude"), localStorage.getItem("longitude"));
+  }
   useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.watchPosition(function (position) {
@@ -52,6 +53,7 @@ export default function TrackVibe() {
         fullWidth
         variant="contained"
         color="primary"
+        onClick={add}
         className={classes.submit}
       >Add Vibe</Button>
       {long && lat &&

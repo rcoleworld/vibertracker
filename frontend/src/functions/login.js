@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken")
-let url = 'http://localhost:5000/users/login';
+let url = 'https://vibetracker.herokuapp.com/users/login';
 
 export async function userLogin(submittedUsername, submittedPassword) {
   let credientials = { username: submittedUsername, password: submittedPassword }

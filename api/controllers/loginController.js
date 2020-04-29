@@ -1,5 +1,5 @@
 const User  = require('../models/userModel');
-const production = false;
+const production = true;
 const mongoose = require('mongoose');
 const CryptoJS = require('crypto-js');
 const jwt = require('jsonwebtoken');
