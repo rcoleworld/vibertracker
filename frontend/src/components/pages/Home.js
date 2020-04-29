@@ -6,6 +6,8 @@ import Maps from '../../maps.png';
 import Pin from '../../pin.png';
 import Nature from '../../nature.png';
 
+
+
 const useStyles = makeStyles((theme) => ({
   root: {
   },
@@ -14,13 +16,14 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-
-
 export default function Home() {
   const classes = useStyles();
 
-  window.localStorage.removeItem('latitude')
-  window.localStorage.removeItem('longitude')
+
+  useEffect(() => {
+    window.localStorage.removeItem('longitude')
+    window.localStorage.removeItem('latitude')
+  }, [])
   
   return (
     <div>

@@ -8,6 +8,8 @@ import InputBase from '@material-ui/core/InputBase';
 import SearchIcon from '@material-ui/icons/Search';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
+import { Link as RouterLink } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   root:{
@@ -80,7 +82,17 @@ const useStyles = makeStyles((theme) => ({
 export default function PrimarySearchAppBar() {
   const classes = useStyles();
   
+  const [isLoggedIn, setIsLoggedIn] = React.useState(true);
 
+  const logout = () => {
+    localStorage.removeItem("jwtToken");
+    localStorage.removeItem("username");
+    setIsLoggedIn(false);
+  }
+
+  if (!isLoggedIn) {
+    return <Redirect to="/"/>
+  }
   return (
     <div className={classes.grow}>
       <AppBar position="static" className={classes.root}>
@@ -90,7 +102,8 @@ export default function PrimarySearchAppBar() {
             className={classes.menuButton}
             color="inherit"
             aria-label="open drawer"
-            href="/"
+            onClick={logout}
+            component={ RouterLink }
           >
             <ArrowBackIcon/>
           </IconButton>

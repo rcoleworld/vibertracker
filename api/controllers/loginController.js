@@ -1,12 +1,12 @@
 const User  = require('../models/userModel');
-const production = true;
+const production = false;
 const mongoose = require('mongoose');
 const CryptoJS = require('crypto-js');
 const jwt = require('jsonwebtoken');
 
 let keys = "";
 if (!production)
-  keys = require('keys../config/keys');
+  keys = require('../config/keys');
 
 const mongodb = process.env.MONGO_URL || keys.mongourl;
 

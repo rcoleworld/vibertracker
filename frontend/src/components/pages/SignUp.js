@@ -6,16 +6,13 @@ import { Redirect } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import Beach from '../../beach.jpg';
 import { CSSTransitionGroup } from 'react-transition-group' // ES6
-import {userLogin, decode} from '../../functions/login';
-
+import { userSignup } from '../../functions/signup';
 const blue = "#0097a7"
 const black = "rgb(0, 0, 0)"
 const useStyles = makeStyles((theme) => ({
@@ -80,11 +77,14 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function Login() {
+export default function Signup() {
   const classes = useStyles();
   const [username, setUsername] = React.useState("");
   const [password, setPassword] = React.useState("");
-  const [loggedIn, setLoggedIn] = React.useState(false);
+  const [wasCreated, setWasCreated] = React.useState(false);
+
+  // password confirmation field
+  const [confirmPassword, setConfirmPassword] = React.useState("");
 
   const changeUsername = (event) => {
     setUsername(event.target.value);
@@ -94,42 +94,49 @@ export default function Login() {
     setPassword(event.target.value);
   }
 
-  const login = () => {
-    userLogin(username, password).then((resp) => {
-      if(resp) {
-        let okResponse = JSON.stringify(resp).includes("Login successful!");
-        if (okResponse) {
-          setLoggedIn(true);
-          decode();
-          return true;
+  const changeConfirmPassword = (event) => {
+    setConfirmPassword(event.target.value);
+  }
+
+  const signup = () => {
+    if (password === confirmPassword) {
+      userSignup(username, password).then((resp) => {
+        if(resp) {
+          let okResponse = JSON.stringify(resp).includes('User created');
+          if (okResponse) {
+            setWasCreated(true);
+            return true;
+          } else {
+            console.log('Error creating user');
+            return false;
+          }
         } else {
-          console.log("Error Logging In");
+          console.log('Could Not Fetch');
           return false;
         }
-      } else {
-        console.log("Could Not Fetch");
-        return false;
-      }
-    });
+      });
+    }
+    else {
+      return false;
+    }
   }
 
-  if(loggedIn) {
-    return <Redirect to="/home"/>
+  if(wasCreated) {
+    return <Redirect to='/'/>
   }
-
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
       <Grid item xs={false} sm={4} md={7} className={classes.image}>
         <div>
-          <h1 className={classes.sideTextOne}>Track Your</h1>
+          <h1 className={classes.sideTextOne}>Start Your</h1>
           <CSSTransitionGroup
             transitionName="example"
             transitionAppear={true}
             transitionAppearTimeout={20000}
             transitionEnter={false}
             transitionLeave={false}>
-            <h1 className={classes.sideTextTwo}>Good Vibes</h1>
+            <h1 className={classes.sideTextTwo}>Journey</h1>
           </CSSTransitionGroup>
         </div>
       </Grid>
@@ -185,22 +192,46 @@ export default function Login() {
                 }
               }}
             />
+            <TextField
+              onChange={changeConfirmPassword}
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              name="confirm"
+              label="Confirm Password"
+              type="password"
+              id="confirm"
+              autoComplete="current-password"
+              InputLabelProps={{
+                classes: {
+                  focused: classes.labels
+                }
+              }}
+              InputProps={{
+                classes: {
+                  root: classes.borderOutline,
+                  focused: classes.borderOutline,
+                  notchedOutline: classes.borderOutline
+                }
+              }}
+            />
             <Button
               type="submit"
               fullWidth
               variant="contained"
               color="primary"
               className={classes.submit}
-              onClick={login}
+              onClick={signup}
               component={ RouterLink }
               // href="/home"
             >
-              Sign In
+              Sign Up
             </Button>
             <Grid container>              
               <Grid item>
-                <Link href="/createuser" variant="body2">
-                  {"Don't have an account? Sign Up"}
+                <Link href="/" variant="body2">
+                  {"Already have an account? Sign in."}
                 </Link>
               </Grid>
             </Grid>

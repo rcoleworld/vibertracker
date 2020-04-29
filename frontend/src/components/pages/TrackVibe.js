@@ -29,18 +29,18 @@ export default function TrackVibe() {
     timeout: 5000,
     maximumAge: 0
   };
+  
   useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.watchPosition(function (position) {
         if (!localStorage.getItem('latitude') || !localStorage.getItem('longitude'))
           window.location.reload()
-        window.localStorage.removeItem('latitude')
-        window.localStorage.removeItem('longitude')
+          
         window.localStorage.setItem('latitude', position.coords.latitude.toString())
         window.localStorage.setItem('longitude', position.coords.longitude.toString())
       });
     }
-  })
+  }, [])
   
   let long = window.localStorage.getItem('longitude');
   let lat = window.localStorage.getItem('latitude');
