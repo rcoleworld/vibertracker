@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import { useSnackbar } from 'notistack';
 import {addLocation} from '../../functions/locations';
+import LocationOnIcon from '@material-ui/icons/LocationOn';
 
 const Map = ReactMapboxGl({
   accessToken:
@@ -80,7 +81,7 @@ export default function TrackVibe() {
           <Marker
             coordinates={[long, lat]}
             anchor="bottom">
-            <img src='https://i.imgur.com/MK4NUzI.png'/>
+            <LocationOnIcon/>
           </Marker>
         </Map>
       }
