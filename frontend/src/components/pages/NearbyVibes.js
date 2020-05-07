@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 
 import LocationOnIcon from '@material-ui/icons/LocationOn';
-import IconButton from '@material-ui/core/IconButton'
 
 import { getAllLocations } from '../../functions/locations';
 import ReactMapboxGl, { Layer, Feature, Marker } from 'react-mapbox-gl';
@@ -12,6 +11,7 @@ const Map = ReactMapboxGl({
     'pk.eyJ1IjoicmNvbGV3b3JsZCIsImEiOiJjazlmam04d28wMzRvM2xsaTRzMHEyYzN2In0.SM_saZLbPKiRRQF6Cods2g'
 });
 
+const black = 'rgb(0, 0, 0)'
 const useStyles = makeStyles((theme) => ({
   formControl: {
     margin: theme.spacing(1),
@@ -37,18 +37,26 @@ const useStyles = makeStyles((theme) => ({
     color: 'rgb(255, 255, 255)',
     width: "50%",
     height: "50%"
+  },
+  button: {
+    margin: theme.spacing(3, 0, 2),
+    color: black,
+    "&:hover": {
+      //you want this to be the same as the backgroundColor above
+      color: `${black} !important`
+    },
   }
 }));
 
 export default function NearbyVibes() {
   const classes = useStyles();
   const [locations, setLocations] = React.useState([]);
+  
   const getLocations = () => {
     getAllLocations().then((resp) => {
       console.log(locations);
       setLocations(resp)
-    }
-    )
+    });
   }
   useEffect(() => {
     getLocations()
@@ -78,9 +86,7 @@ export default function NearbyVibes() {
           <Marker
             coordinates={[location.longitude, location.latitude]}
             anchor="bottom">
-            <IconButton className={classes.iconButton}>
-              <LocationOnIcon className={classes.icon}/>
-            </IconButton>
+            <LocationOnIcon className={classes.icon} />
           </Marker>
         ))
         }
