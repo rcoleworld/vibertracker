@@ -1,7 +1,10 @@
 const url = 'https://vibetracker.herokuapp.com/users/createuser';
 
 export async function userSignup(submittedUsername, submittedPassword) {
-  let credientials = { username: submittedUsername, password: submittedPassword }
+  let credientials = {
+    username: submittedUsername,
+    password: submittedPassword,
+  };
   const response = await fetch(url, {
     method: 'POST',
     origin: '*',
@@ -17,6 +20,6 @@ export async function userSignup(submittedUsername, submittedPassword) {
       console.log('Error: ', error);
       return error;
     });
-  const json = await response.json()
-  return json
+  const json = await response.json();
+  return json;
 }

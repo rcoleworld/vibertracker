@@ -8,7 +8,7 @@ const HOST = process.env.HOST || '0.0.0.0';
 
 const app = express();
 
-const loginRouter = require('./api/routes/login')
+const loginRouter = require('./api/routes/login');
 const locationRouter = require('./api/routes/location');
 
 app.use(cors());
@@ -16,8 +16,8 @@ app.use(express.json());
 app.use(bodyParser.json());
 app.use(bodyParser.text());
 
-app.use('/users', loginRouter)
-app.use('/locations', locationRouter)
+app.use('/users', loginRouter);
+app.use('/locations', locationRouter);
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('frontend/build'));

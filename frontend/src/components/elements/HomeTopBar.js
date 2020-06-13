@@ -13,11 +13,11 @@ import { Redirect } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    backgroundColor: 'rgb(0, 0, 0)'
+    backgroundColor: 'rgb(0, 0, 0)',
   },
   grow: {
     flexGrow: 1,
-    color: "rgb(0, 0, 0)"
+    color: 'rgb(0, 0, 0)',
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -85,29 +85,29 @@ export default function PrimarySearchAppBar() {
   const [isLoggedIn, setIsLoggedIn] = React.useState(true);
 
   const logout = () => {
-    localStorage.removeItem("jwtToken");
-    localStorage.removeItem("username");
+    localStorage.removeItem('jwtToken');
+    localStorage.removeItem('username');
     setIsLoggedIn(false);
-  }
+  };
 
   if (!isLoggedIn) {
-    return <Redirect to="/" />
+    return <Redirect to='/' />;
   }
   return (
     <div className={classes.grow}>
-      <AppBar position="static" className={classes.root}>
+      <AppBar position='static' className={classes.root}>
         <Toolbar>
           <IconButton
-            edge="start"
+            edge='start'
             className={classes.menuButton}
-            color="inherit"
-            aria-label="open drawer"
+            color='inherit'
+            aria-label='open drawer'
             onClick={logout}
             component={RouterLink}
           >
             <ArrowBackIcon />
           </IconButton>
-          <Typography className={classes.title} variant="h6" noWrap>
+          <Typography className={classes.title} variant='h6' noWrap>
             Vibe Tracker
           </Typography>
           {/* <div className={classes.search}>
@@ -126,7 +126,6 @@ export default function PrimarySearchAppBar() {
           <div className={classes.grow} />
         </Toolbar>
       </AppBar>
-
     </div>
   );
 }

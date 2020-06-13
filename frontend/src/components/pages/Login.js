@@ -13,12 +13,12 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import Beach from '../../beach.jpg';
-import { CSSTransitionGroup } from 'react-transition-group' // ES6
-import {userLogin, decode} from '../../functions/login';
+import { CSSTransitionGroup } from 'react-transition-group'; // ES6
+import { userLogin, decode } from '../../functions/login';
 import { useSnackbar } from 'notistack';
 
-const blue = "#0097a7"
-const black = "rgb(0, 0, 0)"
+const blue = '#0097a7';
+const black = 'rgb(0, 0, 0)';
 const useStyles = makeStyles((theme) => ({
   root: {
     height: '100vh',
@@ -27,11 +27,13 @@ const useStyles = makeStyles((theme) => ({
     backgroundImage: `url(${Beach})`,
     backgroundRepeat: 'no-repeat',
     backgroundColor:
-      theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
+      theme.palette.type === 'light'
+        ? theme.palette.grey[50]
+        : theme.palette.grey[900],
     backgroundSize: 'cover',
     backgroundPosition: 'center',
-    backgroundSize: "cover",
-    width: "110%"
+    backgroundSize: 'cover',
+    width: '110%',
   },
   paper: {
     margin: theme.spacing(8, 4),
@@ -44,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
     height: '100%',
     margin: theme.spacing(1),
     marginLeft: theme.spacing(3),
-    marginTop: theme.spacing(-5)
+    marginTop: theme.spacing(-5),
   },
   avatar: {
     margin: theme.spacing(1),
@@ -55,85 +57,86 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(1),
   },
   labels: {
-    color: `${black} !important`
+    color: `${black} !important`,
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
     backgroundColor: black,
-    "&:hover": {
+    '&:hover': {
       //you want this to be the same as the backgroundColor above
-      backgroundColor: `${black} !important`
+      backgroundColor: `${black} !important`,
     },
   },
   borderOutline: {
-    borderWidth: "1px",
-    borderColor: `${black} !important`
+    borderWidth: '1px',
+    borderColor: `${black} !important`,
   },
   sideTextOne: {
-    color: "rgb(255, 255, 255)",
+    color: 'rgb(255, 255, 255)',
     marginTop: theme.spacing(5),
-    fontSize: "80px"
+    fontSize: '80px',
   },
   sideTextTwo: {
-    color: "rgb(255, 255, 255)",
+    color: 'rgb(255, 255, 255)',
     marginTop: theme.spacing(-10),
-    fontSize: "80px"
-  }
+    fontSize: '80px',
+  },
 }));
 
 export default function Login(props) {
   const classes = useStyles();
-  const [username, setUsername] = React.useState("");
-  const [password, setPassword] = React.useState("");
+  const [username, setUsername] = React.useState('');
+  const [password, setPassword] = React.useState('');
   const [loggedIn, setLoggedIn] = React.useState(false);
 
   const { enqueueSnackbar } = useSnackbar();
 
   const changeUsername = (event) => {
     setUsername(event.target.value);
-  }
+  };
 
   const changePassword = (event) => {
     setPassword(event.target.value);
-  }
+  };
 
   const login = () => {
     userLogin(username, password).then((resp) => {
-      if(resp) {
-        let okResponse = JSON.stringify(resp).includes("Login successful!");
+      if (resp) {
+        let okResponse = JSON.stringify(resp).includes('Login successful!');
         if (okResponse) {
           setLoggedIn(true);
           decode();
           return true;
         } else {
-          console.log("Error Logging In");
-          enqueueSnackbar("Invalid email/password", {variant: "error"})
+          console.log('Error Logging In');
+          enqueueSnackbar('Invalid email/password', { variant: 'error' });
           return false;
         }
       } else {
-        console.log("Could Not Fetch");
-        enqueueSnackbar("Invalid email/password", {variant: "error"})
+        console.log('Could Not Fetch');
+        enqueueSnackbar('Invalid email/password', { variant: 'error' });
         return false;
       }
     });
-  }
+  };
 
-  if(loggedIn) {
-    return <Redirect to="/home"/>
+  if (loggedIn) {
+    return <Redirect to='/home' />;
   }
 
   return (
-    <Grid container component="main" className={classes.root}>
+    <Grid container component='main' className={classes.root}>
       <CssBaseline />
       <Grid item xs={false} sm={4} md={7} className={classes.image}>
         <div>
           <h1 className={classes.sideTextOne}>Track Your</h1>
           <CSSTransitionGroup
-            transitionName="example"
+            transitionName='example'
             transitionAppear={true}
             transitionAppearTimeout={20000}
             transitionEnter={false}
-            transitionLeave={false}>
+            transitionLeave={false}
+          >
             <h1 className={classes.sideTextTwo}>Good Vibes</h1>
           </CSSTransitionGroup>
         </div>
@@ -144,67 +147,67 @@ export default function Login(props) {
           <form className={classes.form} noValidate>
             <TextField
               onChange={changeUsername}
-              variant="outlined"
-              margin="normal"
+              variant='outlined'
+              margin='normal'
               required
               fullWidth
-              id="username"
-              label="Username"
-              name="username"
-              autoComplete="text"
+              id='username'
+              label='Username'
+              name='username'
+              autoComplete='text'
               autoFocus
               InputLabelProps={{
                 classes: {
-                  focused: classes.labels
-                }
+                  focused: classes.labels,
+                },
               }}
               InputProps={{
                 classes: {
                   root: classes.borderOutline,
                   focused: classes.borderOutline,
-                  notchedOutline: classes.borderOutline
-                }
+                  notchedOutline: classes.borderOutline,
+                },
               }}
             />
             <TextField
               onChange={changePassword}
-              variant="outlined"
-              margin="normal"
+              variant='outlined'
+              margin='normal'
               required
               fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
+              name='password'
+              label='Password'
+              type='password'
+              id='password'
+              autoComplete='current-password'
               InputLabelProps={{
                 classes: {
-                  focused: classes.labels
-                }
+                  focused: classes.labels,
+                },
               }}
               InputProps={{
                 classes: {
                   root: classes.borderOutline,
                   focused: classes.borderOutline,
-                  notchedOutline: classes.borderOutline
-                }
+                  notchedOutline: classes.borderOutline,
+                },
               }}
             />
             <Button
-              type="submit"
+              type='submit'
               fullWidth
-              variant="contained"
-              color="primary"
+              variant='contained'
+              color='primary'
               className={classes.submit}
               onClick={login}
-              component={ RouterLink }
+              component={RouterLink}
               // href="/home"
             >
               Sign In
             </Button>
-            <Grid container>              
+            <Grid container>
               <Grid item>
-                <Link href="/createuser" variant="body2">
+                <Link href='/createuser' variant='body2'>
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>
